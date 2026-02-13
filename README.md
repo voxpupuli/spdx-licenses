@@ -43,6 +43,11 @@ contain updates to the SPDX License List data.
     > SpdxLicenses.exist?('Unknown')
     false
 
+## Transfer notice
+
+Version 1.3.0 and older were maintained by Dominic Cleal.
+Aftwards the project got migrated to Vox Pupuli.
+
 ## License
 
 Copyright (c) 2014-2021 Dominic Cleal.  Distributed under the MIT license.

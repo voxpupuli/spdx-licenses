@@ -7,9 +7,9 @@ Gem::Specification.new do |s|
   s.summary = 'SPDX license and identifier lookup'
   s.description = 'Provides validation and additional data about SPDX licenses and identifiers'
 
-  s.authors = ['Dominic Cleal']
-  s.email = 'dominic@cleal.org'
-  s.homepage = 'https://github.com/domcleal/spdx-licenses'
+  s.authors = ['Dominic Cleal', 'Vox Pupuli']
+  s.email = 'voxpupuli@groups.io'
+  s.homepage = 'https://github.com/voxpupuli/spdx-licenses'
   s.license = 'MIT'
   s.require_paths = ['lib']
 
