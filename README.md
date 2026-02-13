@@ -25,6 +25,7 @@ contain updates to the SPDX License List data.
 | 1.1.0         | 2.4               |
 | 1.2.0         | 3.1               |
 | 1.3.0         | 3.11-54           |
+| 1.4.0         | 3.27.0            |
 
 ## Usage
 
