@@ -1,0 +1,61 @@
+---
+name: Test
+
+on:
+  pull_request: {}
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: read
+
+jobs:
+  rubocop_and_matrix:
+    runs-on: ubuntu-24.04
+    outputs:
+      ruby: ${{ steps.ruby.outputs.versions }}
+    steps:
+      - uses: actions/checkout@v6
+      - name: Install Ruby ${{ matrix.ruby }}
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '4.0'
+          bundler-cache: true
+      - id: ruby
+        uses: voxpupuli/ruby-version@v2
+
+  test:
+    name: "Ruby ${{ matrix.ruby }}"
+    runs-on: ubuntu-24.04
+    needs: rubocop_and_matrix
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby: ${{ fromJSON(needs.rubocop_and_matrix.outputs.ruby) }}
+    env:
+      BEAKER_HYPERVISOR: docker
+    steps:
+      - uses: actions/checkout@v6
+      - name: Install Ruby ${{ matrix.ruby }}
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+      - name: Build gem
+        run: gem build --verbose *.gemspec
+      - name: Run unit tests
+        run: bundle exec rake test
+
+  tests:
+    if: always()
+    needs:
+      - rubocop_and_matrix
+      - test
+    runs-on: ubuntu-24.04
+    name: Test suite
+    steps:
+      - name: Decide whether the needed jobs succeeded or failed
+        uses: re-actors/alls-green@release/v1
+        with:
+          jobs: ${{ toJSON(needs) }}

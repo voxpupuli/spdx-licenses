@@ -2,3 +2,5 @@ Gemfile.lock
 .ruby-*
 *.gem
 pkg/
+/vendor
+/.vendor
